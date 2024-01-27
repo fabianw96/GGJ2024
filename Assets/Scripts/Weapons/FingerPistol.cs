@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FingerPistol : WeaponBase,ICollectable
+public class FingerPistol : WeaponBase
 {
 
 	public override void Start()
@@ -26,8 +26,5 @@ public class FingerPistol : WeaponBase,ICollectable
 		
 	}
 
-	public void PickUp()
-	{
-		throw new System.NotImplementedException();
-	}
+	
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FartGun :WeaponBase,ICollectable
+public class FartGun :WeaponBase
 {
 
 	public CapsuleCollider trigger;
@@ -45,8 +45,5 @@ public class FartGun :WeaponBase,ICollectable
 		trigger.enabled = false;
 	}
 
-	public void PickUp()
-	{
-		throw new System.NotImplementedException();
-	}
+
 }

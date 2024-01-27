@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cake : ProjectileBase, IThrowable
+public class GasGrenade : ProjectileBase, IThrowable
 {
 	[SerializeField]
 	private Transform playerHandPos;
 
+	public float gasDissolveTime = 0;
+
+	bool activatedNade = false;
+	bool nadeExploded = false;
 
 	public void SetPlayerHandTransform(Transform parent)
 	{
@@ -18,15 +22,32 @@ public class Cake : ProjectileBase, IThrowable
 		rb.isKinematic = false;
 		transform.parent = null;
 		rb.AddForce(playerHandPos.forward * throwForceForward + playerHandPos.up * throwForceUp, ForceMode.Impulse);
+		activatedNade = true;
 		rb.detectCollisions = true;
-
 	}
+	private void OnCollisionEnter(Collision collision)
+	{
+		if (activatedNade)
+		{
+			nadeExploded = true;
+			StartCoroutine(DissovleGas());
+			activatedNade= false;
+		}
+	}
+
 	public override void OnTriggerEnter(Collider other)
 	{
-		if (other.GetComponent<Player>() == null)
+		if(nadeExploded)
 		{
 			base.OnTriggerEnter(other);
 		}
 	}
 
+	IEnumerator DissovleGas()
+	{
+		yield return new WaitForSeconds(gasDissolveTime);
+		Destroy(gameObject);
+	}
 }
+   
+

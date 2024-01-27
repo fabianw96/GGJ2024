@@ -9,7 +9,7 @@ public abstract class WeaponBase : MonoBehaviour
 	[SerializeField]
 	protected int maxAmmo = 0;
 	[SerializeField]
-	protected int currentAmmo = 0;
+	public int currentAmmo = 0;
 	[SerializeField]
 	protected float reloadTime = 0;
 	[SerializeField]
@@ -60,6 +60,8 @@ public abstract class WeaponBase : MonoBehaviour
 		
        
     }
+
+	
 	public void Reload()
 	{
 		isOnReload= true;
