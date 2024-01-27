@@ -22,8 +22,8 @@ public class ProjectileBase : MonoBehaviour
 	{
 		if (other.gameObject.GetComponent<IDamageableFoe>() != null)
 		{
-			other.gameObject.GetComponent<IDamageableFoe>().TakeDamage();
-			Destroy(this);
+			other.gameObject.GetComponent<IDamageableFoe>().TakeDamage(damage);
+			Destroy(gameObject);
 		}
 	}
 

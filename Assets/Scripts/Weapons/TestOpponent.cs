@@ -17,7 +17,7 @@ public class TestOpponent : MonoBehaviour,IDamageableFoe
         
     }
     
-	public void TakeDamage()
+	public void TakeDamage(float damage)
 	{
         Debug.Log("Took Damage");
 	}

@@ -15,7 +15,7 @@ public enum EEnemyTypeRanged
 public class BaseEnemyRanged : MonoBehaviour
 {
     [SerializeField] private NavMeshAgent agent;
-    [SerializeField] private GameObject player;
+    [SerializeField] private Player player;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform projectileSpawn;
 

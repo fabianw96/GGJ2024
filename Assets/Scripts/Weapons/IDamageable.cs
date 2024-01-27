@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IDamageableFoe 
 {
-    void TakeDamage();
+    void TakeDamage(float damage);
 }

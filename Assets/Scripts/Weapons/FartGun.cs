@@ -33,7 +33,7 @@ public class FartGun :WeaponBase,ICollectable
 		
 		if (other.gameObject.GetComponent<IDamageableFoe>() != null)
 		{
-			other.gameObject.GetComponent<IDamageableFoe>().TakeDamage();
+			other.gameObject.GetComponent<IDamageableFoe>().TakeDamage(directDamage);
 			
 		}
 	}
