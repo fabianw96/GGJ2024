@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cake : ProjectileBase, IThrowable, ICollectable
+public class Cake : ProjectileBase, IThrowable
 {
 	[SerializeField]
 	private Transform playerHandPos;

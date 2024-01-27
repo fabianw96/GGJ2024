@@ -8,6 +8,8 @@ using static UnityEditor.SceneView;
 
 public class Player : MonoBehaviour,IDamageableFoe
 {
+    #region Variables
+
     [SerializeField] private Rigidbody rb;
     public CinemachineVirtualCamera cinemachineVirtualCamera;
     public Cinemachine3rdPersonFollow ThirdPersonFollow;
@@ -44,7 +46,9 @@ public class Player : MonoBehaviour,IDamageableFoe
 
     float mouseScrollInput;
 
-    // Start is called before the first frame update
+    #endregion
+
+    #region EventFunctions
     private void Start()
     {
         ThirdPersonFollow = cinemachineVirtualCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
@@ -55,7 +59,6 @@ public class Player : MonoBehaviour,IDamageableFoe
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         ManageCurrentWeapon();
@@ -66,10 +69,15 @@ public class Player : MonoBehaviour,IDamageableFoe
     {
         Move();
     }
+
     private void LateUpdate()
     {
         Look();
     }
+
+    #endregion
+
+    #region InputManagerCalls
     public void OnMove(InputAction.CallbackContext context)
     {
         move = context.ReadValue<Vector2>();
@@ -179,6 +187,21 @@ public class Player : MonoBehaviour,IDamageableFoe
         }
     }
     }
+
+    public void OnZoom(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            cinemachineVirtualCamera.m_Lens.FieldOfView = 45;
+        }
+
+        if (context.canceled)
+        {
+            cinemachineVirtualCamera.m_Lens.FieldOfView = 60;
+        }
+    }
+
+    #endregion
     void Move()
     {
         Vector3 moveDirection = transform.forward * move.y + transform.right * move.x;
