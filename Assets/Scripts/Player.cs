@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using static UnityEditor.SceneView;
 
 public class Player : MonoBehaviour,IDamageableFoe
@@ -19,6 +20,7 @@ public class Player : MonoBehaviour,IDamageableFoe
 
     [Header("Movement")]
     [SerializeField] private float groundDrag;
+    [SerializeField] private float currentVelocity;
     Vector2 move;
 
     [Header("Look")]
@@ -41,6 +43,10 @@ public class Player : MonoBehaviour,IDamageableFoe
     [SerializeField] private float playerHeight;
     [SerializeField] private PlayerStats playerStats;
     private float _moveSpeed;
+    
+    [Header("Animation")]
+    [SerializeField] private Animator animator;
+    private int _velocityHash = Animator.StringToHash("PlayerVelocity");
 
     float mouseScrollInput;
     
@@ -64,8 +70,15 @@ public class Player : MonoBehaviour,IDamageableFoe
     // Update is called once per frame
     void Update()
     {
+        PlayerAnimationState();
         ManageCurrentWeapon();
         GroundCheck();
+        currentVelocity = rb.velocity.magnitude;
+    }
+
+    private void PlayerAnimationState()
+    {
+        animator.SetFloat(_velocityHash, currentVelocity);
     }
 
     private void FixedUpdate()
@@ -201,6 +214,7 @@ public class Player : MonoBehaviour,IDamageableFoe
     void Move()
     {
         Vector3 moveDirection = transform.forward * move.y + transform.right * move.x;
+        
         rb.AddForce(moveDirection.normalized * _moveSpeed);
     }
 
@@ -255,5 +269,11 @@ public class Player : MonoBehaviour,IDamageableFoe
     public void TakeDamage(float damage)
     {
         playerStats.TakeDamage(damage);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(groundCheck.position, playerWidth);
     }
 }
