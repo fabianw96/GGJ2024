@@ -1,4 +1,5 @@
 using Cinemachine;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEditor.SceneView;
@@ -6,8 +7,8 @@ using static UnityEditor.SceneView;
 public class Player : MonoBehaviour
 {
     [SerializeField] private Rigidbody rb;
-    //public CinemachineVirtualCamera cinemachineVirtualCamera;
-    //public Cinemachine3rdPersonFollow ThirdPersonFollow;
+    public CinemachineVirtualCamera cinemachineVirtualCamera;
+    public Cinemachine3rdPersonFollow ThirdPersonFollow;
 
 
     [Header("Movement")]
@@ -34,12 +35,12 @@ public class Player : MonoBehaviour
     [Header("Player Values")]
     [SerializeField] private float playerWidth;
     [SerializeField] private float playerHeight;
+    private int health = 100;
 
     // Start is called before the first frame update
     private void Start()
     {
-        //cinemachineVirtualCamera = GetComponent<CinemachineVirtualCamera>();
-        //ThirdPersonFollow = cinemachineVirtualCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
+        ThirdPersonFollow = cinemachineVirtualCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         Cursor.lockState = CursorLockMode.Locked;
@@ -61,7 +62,6 @@ public class Player : MonoBehaviour
     {
         Look();
     }
-
     public void OnMove(InputAction.CallbackContext context)
     {
         move = context.ReadValue<Vector2>();
@@ -76,14 +76,25 @@ public class Player : MonoBehaviour
     {
         Jump();
     }
+    public void OnFire(InputAction.CallbackContext context)
+    {
 
-    //public void OnCameraFlipX(InputAction.CallbackContext context)
-    //{
-    //    if (context.performed)
-    //    {
-    //        Debug.Log(ThirdPersonFollow.ShoulderOffset);
-    //    }
-    //}
+    }
+    public void OnReload(InputAction.CallbackContext context)
+    {
+
+    }
+    public void OnCameraFlipX(InputAction.CallbackContext context)
+    {
+        if (ThirdPersonFollow.CameraSide == 0)
+        {
+            ThirdPersonFollow.CameraSide = 1;
+        }
+        else
+        {
+            ThirdPersonFollow.CameraSide = 0;
+        }
+    }
     void Move()
     {
         Vector3 moveDirection = transform.forward * move.y + transform.right * move.x;

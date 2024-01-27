@@ -772,6 +772,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 55a00b89-941d-4cd0-8c08-0f6b6ac9f740
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3d6b233e-84f7-49f8-810e-b54544a94e2b
+    m_ActionName: Player/CameraFlipX[/Keyboard/x]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -881,6 +885,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 1752216408}
+  cinemachineVirtualCamera: {fileID: 2102085127}
+  ThirdPersonFollow: {fileID: 0}
   movespeed: 50
   groundDrag: 5
   mouseSensitivity: {x: 7, y: 7}
