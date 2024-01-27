@@ -43,6 +43,7 @@ public class Player : MonoBehaviour,IDamageableFoe
     private float _moveSpeed;
 
     float mouseScrollInput;
+    bool swappedWeapon = false; 
     
     private void Awake()
     {
@@ -103,7 +104,10 @@ public class Player : MonoBehaviour,IDamageableFoe
             else if (inventory.weapons[inventory.inventoryIndex].GetComponent<IThrowable>() != null)
             {
                 inventory.weapons[inventory.inventoryIndex].GetComponent<IThrowable>().Throw();
-            }
+                inventory.weapons[inventory.inventoryIndex] = inventory.throwPlaceHolder;
+
+
+			}
         }
     }
     
@@ -147,20 +151,37 @@ public class Player : MonoBehaviour,IDamageableFoe
         }
         if (hit.transform.GetComponent<WeaponBase>() != null)
         {
+
+            if(inventory.weapons[1] != inventory.WeaponPlaceHolder)
+            {
+                inventory.weapons[1].transform.parent = null;
+
+				inventory.weapons[1].SetActive(true);
+				inventory.weapons[1].transform.position = hit.transform.position;
+			}
             
             inventory.weapons[1] = hit.transform.GetComponent<WeaponBase>().gameObject;
             inventory.weapons[1].transform.SetParent(WeaponHolder, false);
-            inventory.weapons[1].transform.position = WeaponHolder.position;
-            inventory.weapons[1].SetActive(false);
+		    inventory.weapons[1].transform.position = WeaponHolder.position;
+			inventory.weapons[1].transform.localRotation= Quaternion.identity;
+		   inventory.weapons[1].SetActive(false);
            
         }
         else if (hit.transform.GetComponent<IThrowable>() != null)
         {
-            
-             inventory.weapons[2] = hit.transform.gameObject;
-             inventory.weapons[2].transform.SetParent(WeaponHolder, false);
-             inventory.weapons[2].transform.position = WeaponHolder.position;
-             inventory.weapons[2].SetActive(false);
+			if (inventory.weapons[2] != inventory.throwPlaceHolder)
+			{
+				return;
+			}
+
+
+			hit.transform.GetComponent<IThrowable>().SetPlayerHandTransform(WeaponHolder);
+            hit.transform.GetComponent<ProjectileBase>().rb.isKinematic = true;
+			hit.transform.GetComponent<ProjectileBase>().rb.detectCollisions = false;
+			inventory.weapons[2] = hit.transform.gameObject;
+            inventory.weapons[2].transform.SetParent(WeaponHolder,false);
+            inventory.weapons[2].transform.position = WeaponHolder.position;
+            inventory.weapons[2].SetActive(false);
         }
         
     }
@@ -169,18 +190,20 @@ public class Player : MonoBehaviour,IDamageableFoe
     {
 
         if (context.started) { 
-            mouseScrollInput = context.ReadValue<float>();
-            if (mouseScrollInput > 0)
-            {
-                inventory.weapons[inventory.inventoryIndex].SetActive(false);
-                inventory.inventoryIndex++;
-                inventory.inventoryIndex = Mathf.Clamp(inventory.inventoryIndex, 0, 2);
-            }
-            else if (mouseScrollInput < 0)
-            {
-                inventory.weapons[inventory.inventoryIndex].SetActive(false);
-                inventory.inventoryIndex--;
-                inventory.inventoryIndex = Mathf.Clamp(inventory.inventoryIndex, 0, 2);
+        mouseScrollInput = context.ReadValue<float>();
+        if (mouseScrollInput > 0)
+        {
+            inventory.weapons[inventory.inventoryIndex].SetActive(false);
+            inventory.inventoryIndex++;
+            inventory.inventoryIndex = Mathf.Clamp(inventory.inventoryIndex, 0, 2);
+                swappedWeapon = true;
+        }
+        else if (mouseScrollInput < 0)
+        {
+            inventory.weapons[inventory.inventoryIndex].SetActive(false);
+            inventory.inventoryIndex--;
+            inventory.inventoryIndex = Mathf.Clamp(inventory.inventoryIndex, 0, 2);
+                swappedWeapon = true;
 
             }
         }
@@ -245,10 +268,24 @@ public class Player : MonoBehaviour,IDamageableFoe
 
     private void ManageCurrentWeapon()
     {
-        if (mouseScrollInput != 0)
+        if (swappedWeapon)
         {
+            swappedWeapon= false;
             inventory.weapons[inventory.inventoryIndex].SetActive(true);
-        }
+			if(inventory.weapons[inventory.inventoryIndex].GetComponent<WeaponBase>() != null)
+            {
+               
+                if (inventory.weapons[inventory.inventoryIndex].GetComponent<WeaponBase>().isOnReload)
+                {
+                    Debug.Log("Swap Reloading");
+                    inventory.weapons[inventory.inventoryIndex].GetComponent<WeaponBase>().Reload();
+
+                }
+
+
+            }
+
+		}
 
     }
 

@@ -18,7 +18,7 @@ public class ProjectileBase : MonoBehaviour
 
 	public Rigidbody rb;
 
-	public void OnTriggerEnter(Collider other)
+	public virtual void OnTriggerEnter(Collider other)
 	{
 		if (other.gameObject.GetComponent<IDamageableFoe>() != null)
 		{
