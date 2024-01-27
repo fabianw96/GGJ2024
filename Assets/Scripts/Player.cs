@@ -8,8 +8,6 @@ using static UnityEditor.SceneView;
 
 public class Player : MonoBehaviour,IDamageableFoe
 {
-    #region Variables
-
     [SerializeField] private Rigidbody rb;
     public CinemachineVirtualCamera cinemachineVirtualCamera;
     public Cinemachine3rdPersonFollow ThirdPersonFollow;
@@ -20,7 +18,6 @@ public class Player : MonoBehaviour,IDamageableFoe
 
 
     [Header("Movement")]
-    [SerializeField] private float movespeed;
     [SerializeField] private float groundDrag;
     Vector2 move;
 
@@ -43,12 +40,18 @@ public class Player : MonoBehaviour,IDamageableFoe
     [Header("Player Values")]
     [SerializeField] private float playerWidth;
     [SerializeField] private float playerHeight;
+    [SerializeField] private PlayerStats playerStats;
+    private float _moveSpeed;
 
     float mouseScrollInput;
+    
+    private void Awake()
+    {
+        playerStats.InitStats();
+        _moveSpeed = playerStats.GetSpeed();
+    }
 
-    #endregion
-
-    #region EventFunctions
+    // Start is called before the first frame update
     private void Start()
     {
         ThirdPersonFollow = cinemachineVirtualCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
@@ -59,6 +62,7 @@ public class Player : MonoBehaviour,IDamageableFoe
         
     }
 
+    // Update is called once per frame
     void Update()
     {
         ManageCurrentWeapon();
@@ -69,15 +73,10 @@ public class Player : MonoBehaviour,IDamageableFoe
     {
         Move();
     }
-
     private void LateUpdate()
     {
         Look();
     }
-
-    #endregion
-
-    #region InputManagerCalls
     public void OnMove(InputAction.CallbackContext context)
     {
         move = context.ReadValue<Vector2>();
@@ -171,41 +170,26 @@ public class Player : MonoBehaviour,IDamageableFoe
     {
 
         if (context.started) { 
-        mouseScrollInput = context.ReadValue<float>();
-        if (mouseScrollInput > 0)
-        {
-            inventory.weapons[inventory.inventoryIndex].SetActive(false);
-            inventory.inventoryIndex++;
-            inventory.inventoryIndex = Mathf.Clamp(inventory.inventoryIndex, 0, 2);
-        }
-        else if (mouseScrollInput < 0)
-        {
-            inventory.weapons[inventory.inventoryIndex].SetActive(false);
-            inventory.inventoryIndex--;
-            inventory.inventoryIndex = Mathf.Clamp(inventory.inventoryIndex, 0, 2);
+            mouseScrollInput = context.ReadValue<float>();
+            if (mouseScrollInput > 0)
+            {
+                inventory.weapons[inventory.inventoryIndex].SetActive(false);
+                inventory.inventoryIndex++;
+                inventory.inventoryIndex = Mathf.Clamp(inventory.inventoryIndex, 0, 2);
+            }
+            else if (mouseScrollInput < 0)
+            {
+                inventory.weapons[inventory.inventoryIndex].SetActive(false);
+                inventory.inventoryIndex--;
+                inventory.inventoryIndex = Mathf.Clamp(inventory.inventoryIndex, 0, 2);
 
-        }
-    }
-    }
-
-    public void OnZoom(InputAction.CallbackContext context)
-    {
-        if (context.started)
-        {
-            cinemachineVirtualCamera.m_Lens.FieldOfView = 45;
-        }
-
-        if (context.canceled)
-        {
-            cinemachineVirtualCamera.m_Lens.FieldOfView = 60;
+            }
         }
     }
-
-    #endregion
     void Move()
     {
         Vector3 moveDirection = transform.forward * move.y + transform.right * move.x;
-        rb.AddForce(moveDirection.normalized * movespeed);
+        rb.AddForce(moveDirection.normalized * _moveSpeed);
     }
 
     void Look()
@@ -258,6 +242,6 @@ public class Player : MonoBehaviour,IDamageableFoe
 
     public void TakeDamage(float damage)
     {
-        throw new NotImplementedException();
+        playerStats.TakeDamage(damage);
     }
 }

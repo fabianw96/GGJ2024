@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2166441981974937543}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: CameraHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7720102844240039112}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: GroundCheckObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 1079530490891474199}
   - component: {fileID: 1568476432561760297}
   - component: {fileID: 963727563126212365}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -187,7 +187,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7104654469635461858}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Placeholder2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -218,7 +218,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8994781019219330760}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Placeholder1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -250,7 +250,7 @@ GameObject:
   m_Component:
   - component: {fileID: 702836818351020388}
   - component: {fileID: 111177939362219745}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Virtual Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -321,7 +321,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 98975684198444082}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PlayActiveSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -360,7 +360,7 @@ GameObject:
   - component: {fileID: 3313428646755959269}
   - component: {fileID: 1430908375490160537}
   - component: {fileID: 7205084282547260744}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -681,22 +681,6 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 5a1e1ad1-086d-4329-873f-d6bc222b0e4e
     m_ActionName: Player/WeaponSwap[/Mouse/scroll/down,/Mouse/scroll/up]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3313428646755959269}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: OnZoom
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 3c7a01d6-fd25-4d43-9ee0-2105c79f28c6
-    m_ActionName: Player/Zoom[/Mouse/rightButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -720,14 +704,13 @@ MonoBehaviour:
   WeaponHolder: {fileID: 3062102081744118729}
   inventory: {fileID: 7205084282547260744}
   interactDistance: 10
-  movespeed: 51
   groundDrag: 5
-  mouseSensitivity: {x: 10, y: 10}
+  mouseSensitivity: {x: 7, y: 7}
   rotationStrength: 0
   lookRotation: 0
   cameraHolder: {fileID: 2166441981974937543}
   lookXLimit: 60
-  jumpForce: 5
+  jumpForce: 100
   isGrounded: 1
   Ground:
     serializedVersion: 2
@@ -735,6 +718,7 @@ MonoBehaviour:
   groundCheck: {fileID: 7720102844240039112}
   playerWidth: 0.5
   playerHeight: 2
+  playerStats: {fileID: 1430908375490160537}
 --- !u!114 &1430908375490160537
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -749,7 +733,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHappiness: 150
   happiness: 100
-  characterSpeed: 0
+  characterSpeed: 50
   isDead: 0
 --- !u!114 &7205084282547260744
 MonoBehaviour:
@@ -780,7 +764,7 @@ GameObject:
   - component: {fileID: 8607038970366941893}
   - component: {fileID: 2402886755242365666}
   - component: {fileID: 4387378375025561672}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: glasses
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -882,7 +866,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3062102081744118729}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: WeaponContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -919,6 +903,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FingerPistol
+      objectReference: {fileID: 0}
+    - target: {fileID: 3245371377663985070, guid: 9f86189d52361084cabb14bfeababd55,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5031691647653307588, guid: 9f86189d52361084cabb14bfeababd55,
         type: 3}
