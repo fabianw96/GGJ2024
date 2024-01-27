@@ -4,39 +4,5 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-<<<<<<< Updated upstream
   m_Scenes: []
-=======
-  m_Scenes:
-  - enabled: 1
-    path: Assets/Scenes/Jonas/InitScene.unity
-    guid: a17b4f438dcb70c43b3e712dca57be4b
-  - enabled: 1
-    path: Assets/Scenes/Jonas/LevelScene.unity
-    guid: 31924afed4a7ee248a5d4b2a47870439
-  - enabled: 1
-    path: Assets/Scenes/Jonas/Main Menu.unity
-    guid: ef415c37a712ac9469a6460f0ab0fd0d
-  - enabled: 1
-    path: Assets/Scenes/Jonas/Levelselection.unity
-    guid: d2fece1f8e85c1a4aa599e3a22f4819d
-  - enabled: 1
-    path: Assets/Scenes/Jonas/PauseMenu.unity
-    guid: fece1f48da9da57458728d69976f0928
-  - enabled: 1
-    path: Assets/Scenes/Jonas/Options.unity
-    guid: 7ffbb0b06578b614596d865721190b65
-  - enabled: 1
-    path: Assets/Scenes/Jonas/Level 0 Scene.unity
-    guid: c696c82a7cc505843b7b96124f1658e0
-  - enabled: 1
-    path: Assets/Scenes/Jonas/Level 1 Scene.unity
-    guid: cce81a1fde198de4799ad1418c852fcd
-  - enabled: 1
-    path: Assets/Scenes/Jonas/Level 2 Scene.unity
-    guid: 49e898c93beb3fb499f8162e029e1296
-  - enabled: 1
-    path: Assets/Scenes/Jonas/Level 3 Scene.unity
-    guid: 3fc18bbe6d12d5a4b9a10f3cf0dc211d
->>>>>>> Stashed changes
   m_configObjects: {}

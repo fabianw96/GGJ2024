@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEditor.SceneView;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour,IDamageableFoe
 {
     [SerializeField] private Rigidbody rb;
     public CinemachineVirtualCamera cinemachineVirtualCamera;
@@ -231,5 +231,10 @@ public class Player : MonoBehaviour
             inventory.weapons[inventory.inventoryIndex].SetActive(true);
         }
 
+    }
+
+    public void TakeDamage(float damage)
+    {
+        throw new NotImplementedException();
     }
 }
