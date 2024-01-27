@@ -18,13 +18,11 @@ public class Player : MonoBehaviour,IDamageableFoe
 
 
     [Header("Movement")]
-    [SerializeField] private float movespeed;
     [SerializeField] private float groundDrag;
     Vector2 move;
 
     [Header("Look")]
     [SerializeField] private Vector2 mouseSensitivity;
-    [SerializeField] private float rotationStrength;
     [SerializeField] private float lookRotation;
     public Transform cameraHolder;
     public float lookXLimit = 60.0f;
@@ -41,9 +39,17 @@ public class Player : MonoBehaviour,IDamageableFoe
     [Header("Player Values")]
     [SerializeField] private float playerWidth;
     [SerializeField] private float playerHeight;
+    [SerializeField] private PlayerStats playerStats;
+    private float _moveSpeed;
 
     float mouseScrollInput;
     bool swappedWeapon = false; 
+    
+    private void Awake()
+    {
+        playerStats.InitStats();
+        _moveSpeed = playerStats.GetSpeed();
+    }
 
     // Start is called before the first frame update
     private void Start()
@@ -199,13 +205,26 @@ public class Player : MonoBehaviour,IDamageableFoe
             inventory.inventoryIndex = Mathf.Clamp(inventory.inventoryIndex, 0, 2);
                 swappedWeapon = true;
 
+            }
         }
     }
+
+    public void OnZoom(InputAction.CallbackContext Context)
+    {
+        if(Context.started)
+        {
+            cinemachineVirtualCamera.m_Lens.FieldOfView = 45;
+        }
+        
+        if (Context.canceled)
+        {
+            cinemachineVirtualCamera.m_Lens.FieldOfView = 60;
+        }
     }
     void Move()
     {
         Vector3 moveDirection = transform.forward * move.y + transform.right * move.x;
-        rb.AddForce(moveDirection.normalized * movespeed);
+        rb.AddForce(moveDirection.normalized * _moveSpeed);
     }
 
     void Look()
@@ -272,6 +291,6 @@ public class Player : MonoBehaviour,IDamageableFoe
 
     public void TakeDamage(float damage)
     {
-        
+        playerStats.TakeDamage(damage);
     }
 }

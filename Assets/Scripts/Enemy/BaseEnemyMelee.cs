@@ -11,7 +11,7 @@ namespace Enemy
         Angry,
     }
 
-    public class BaseEnemyMelee : MonoBehaviour
+    public class BaseEnemyMelee : MonoBehaviour, IDamageableFoe
     {
         [SerializeField] private NavMeshAgent agent;
         [SerializeField] private Player player;
@@ -84,6 +84,11 @@ namespace Enemy
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireCube(attackBox.transform.position, attackBox.transform.localScale);
+        }
+
+        public void TakeDamage(float takenDamage)
+        {
+            enemyStats.TakeDamage(takenDamage);
         }
     }
 }
