@@ -6,6 +6,25 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+<<<<<<< Updated upstream
     path: Assets/Scenes/SceneJustin.unity
+=======
+    path: Assets/Scenes/InitScene.unity
+    guid: a17b4f438dcb70c43b3e712dca57be4b
+  - enabled: 1
+    path: Assets/Scenes/LevelScene.unity
+>>>>>>> Stashed changes
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/Main Menu.unity
+    guid: ef415c37a712ac9469a6460f0ab0fd0d
+  - enabled: 1
+    path: Assets/Scenes/Levelselection.unity
+    guid: d2fece1f8e85c1a4aa599e3a22f4819d
+  - enabled: 1
+    path: Assets/Scenes/PauseMenu.unity
+    guid: fece1f48da9da57458728d69976f0928
+  - enabled: 1
+    path: Assets/Scenes/Options.unity
+    guid: 7ffbb0b06578b614596d865721190b65
   m_configObjects: {}
