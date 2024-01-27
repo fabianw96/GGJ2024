@@ -1,18 +1,24 @@
+using System;
 using Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using static UnityEditor.SceneView;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDamageableFoe
 {
     [SerializeField] private Rigidbody rb;
     public CinemachineVirtualCamera cinemachineVirtualCamera;
-    public Cinemachine3rdPersonFollow ThirdPersonFollow;
+    public Cinemachine3rdPersonFollow thirdPersonFollow;
 
+    [Header("Stats")]
+    [SerializeField] private PlayerStats playerStats;
+    private float _moveSpeed;
 
+    
     [Header("Movement")]
-    [SerializeField] private float movespeed;
+    [SerializeField] private float speedMult;
     [SerializeField] private float groundDrag;
     Vector2 move;
 
@@ -35,12 +41,18 @@ public class Player : MonoBehaviour
     [Header("Player Values")]
     [SerializeField] private float playerWidth;
     [SerializeField] private float playerHeight;
-    private int health = 100;
+    private float health;
+
+    private void Awake()
+    {
+        playerStats.InitStats();
+        _moveSpeed = playerStats.GetSpeed();
+    }
 
     // Start is called before the first frame update
     private void Start()
     {
-        ThirdPersonFollow = cinemachineVirtualCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
+        thirdPersonFollow = cinemachineVirtualCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         Cursor.lockState = CursorLockMode.Locked;
@@ -50,7 +62,6 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      
         GroundCheck();
     }
     
@@ -86,19 +97,24 @@ public class Player : MonoBehaviour
     }
     public void OnCameraFlipX(InputAction.CallbackContext context)
     {
-        if (ThirdPersonFollow.CameraSide == 0)
+        if (thirdPersonFollow.CameraSide == 0)
         {
-            ThirdPersonFollow.CameraSide = 1;
+            thirdPersonFollow.CameraSide = 1;
         }
         else
         {
-            ThirdPersonFollow.CameraSide = 0;
+            thirdPersonFollow.CameraSide = 0;
         }
     }
     void Move()
     {
         Vector3 moveDirection = transform.forward * move.y + transform.right * move.x;
-        rb.AddForce(moveDirection.normalized * movespeed);
+        Vector3 normalizedMoveDir = moveDirection.normalized * speedMult;
+        rb.AddForce(normalizedMoveDir);
+        if (rb.velocity.magnitude > _moveSpeed)
+        {
+            rb.velocity *= _moveSpeed;
+        }
     }
 
     void Look()
@@ -140,4 +156,8 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void TakeDamage(float damage)
+    {
+        playerStats.TakeDamage(damage);
+    }
 }

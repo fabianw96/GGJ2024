@@ -17,7 +17,7 @@ public class FingerPistol : WeaponBase,ICollectable
 		
 		if(hit.collider.gameObject.GetComponent<IDamageableFoe>()!=null) 
 		{
-			hit.collider.gameObject.GetComponent<IDamageableFoe>().TakeDamage();
+			hit.collider.gameObject.GetComponent<IDamageableFoe>().TakeDamage(directDamage);
 		}
 		
 		
