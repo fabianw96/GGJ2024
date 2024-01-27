@@ -13,7 +13,10 @@ public class FingerPistol : WeaponBase,ICollectable
 	public override void Shoot()
 	{
 		RaycastHit hit;
-		Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit); 
+		if (!Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit))
+		{
+			return;
+		}; 
 		
 		if(hit.collider.gameObject.GetComponent<IDamageableFoe>()!=null) 
 		{
