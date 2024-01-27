@@ -23,7 +23,6 @@ public class Player : MonoBehaviour,IDamageableFoe
 
     [Header("Look")]
     [SerializeField] private Vector2 mouseSensitivity;
-    [SerializeField] private float rotationStrength;
     [SerializeField] private float lookRotation;
     public Transform cameraHolder;
     public float lookXLimit = 60.0f;
@@ -184,6 +183,19 @@ public class Player : MonoBehaviour,IDamageableFoe
                 inventory.inventoryIndex = Mathf.Clamp(inventory.inventoryIndex, 0, 2);
 
             }
+        }
+    }
+
+    public void OnZoom(InputAction.CallbackContext Context)
+    {
+        if(Context.started)
+        {
+            cinemachineVirtualCamera.m_Lens.FieldOfView = 45;
+        }
+        
+        if (Context.canceled)
+        {
+            cinemachineVirtualCamera.m_Lens.FieldOfView = 60;
         }
     }
     void Move()

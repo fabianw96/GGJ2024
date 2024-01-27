@@ -681,6 +681,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 5a1e1ad1-086d-4329-873f-d6bc222b0e4e
     m_ActionName: Player/WeaponSwap[/Mouse/scroll/down,/Mouse/scroll/up]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3313428646755959269}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: OnZoom
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 3c7a01d6-fd25-4d43-9ee0-2105c79f28c6
+    m_ActionName: Player/Zoom[/Mouse/rightButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -705,7 +721,7 @@ MonoBehaviour:
   inventory: {fileID: 7205084282547260744}
   interactDistance: 10
   groundDrag: 5
-  mouseSensitivity: {x: 7, y: 7}
+  mouseSensitivity: {x: 10, y: 10}
   rotationStrength: 0
   lookRotation: 0
   cameraHolder: {fileID: 2166441981974937543}
