@@ -10,8 +10,13 @@ public enum SceneIndicies
     MenuScene,
     LevelselectScene,
     PauseScene,
-    OptionsScene
-    
+    OptionsScene,
+    Level0Scene,
+    Level1Scene,
+    Level2Scene,
+    Level3Scene
+
+
 }
 public class Szeneloader : MonoBehaviour
 {
