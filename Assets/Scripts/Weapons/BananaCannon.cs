@@ -35,8 +35,4 @@ public class BananaCannon : WeaponBase
 		
 	}
 
-	public void PickUp()
-	{
-		throw new System.NotImplementedException();
-	}
 }

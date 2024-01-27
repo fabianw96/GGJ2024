@@ -6,6 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuButtons : MonoBehaviour
 {
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
+    }
     public void LevelSelectButton()
     {
         Szeneloader.Instance.LoadScene(SceneIndicies.LevelselectScene);

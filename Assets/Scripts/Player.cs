@@ -4,11 +4,12 @@ using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using static UnityEditor.SceneView;
 
 public class Player : MonoBehaviour,IDamageableFoe
 {
-    [SerializeField] private Rigidbody rb;
+    // [SerializeField] private Rigidbody rb;
     public CinemachineVirtualCamera cinemachineVirtualCamera;
     public Cinemachine3rdPersonFollow ThirdPersonFollow;
     public Transform WeaponHolder;
@@ -18,7 +19,9 @@ public class Player : MonoBehaviour,IDamageableFoe
 
 
     [Header("Movement")]
-    [SerializeField] private float groundDrag;
+    // [SerializeField] private float groundDrag;
+    [SerializeField] private float currentVelocity;
+    [SerializeField] private CharacterController characterController;
     Vector2 move;
 
     [Header("Look")]
@@ -41,9 +44,18 @@ public class Player : MonoBehaviour,IDamageableFoe
     [SerializeField] private float playerHeight;
     [SerializeField] private PlayerStats playerStats;
     private float _moveSpeed;
+    
+    [Header("Animation")]
+    [SerializeField] private Animator animator;
+    private int _velocityHash = Animator.StringToHash("PlayerVelocity");
 
     float mouseScrollInput;
+    bool swappedWeapon = false;
     
+    [Header("Gravity")] 
+    [SerializeField] private float gravityValue = -9.81f;
+    private Vector3 _characterVelocity;
+
     private void Awake()
     {
         playerStats.InitStats();
@@ -54,8 +66,8 @@ public class Player : MonoBehaviour,IDamageableFoe
     private void Start()
     {
         ThirdPersonFollow = cinemachineVirtualCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
-        rb = GetComponent<Rigidbody>();
-        rb.freezeRotation = true;
+        // rb = GetComponent<Rigidbody>();
+        // rb.freezeRotation = true;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         
@@ -64,13 +76,21 @@ public class Player : MonoBehaviour,IDamageableFoe
     // Update is called once per frame
     void Update()
     {
+        PlayerAnimationState();
         ManageCurrentWeapon();
         GroundCheck();
+        // currentVelocity = rb.velocity.magnitude;
+    }
+
+    private void PlayerAnimationState()
+    {
+        animator.SetFloat(_velocityHash, currentVelocity);
     }
 
     private void FixedUpdate()
     {
         Move();
+        HandleGravity();
     }
     private void LateUpdate()
     {
@@ -88,7 +108,10 @@ public class Player : MonoBehaviour,IDamageableFoe
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        Jump();
+        if (context.performed && isGrounded)
+        {
+            Jump();
+        }
     }
 
     public void OnFire(InputAction.CallbackContext context)
@@ -103,7 +126,10 @@ public class Player : MonoBehaviour,IDamageableFoe
             else if (inventory.weapons[inventory.inventoryIndex].GetComponent<IThrowable>() != null)
             {
                 inventory.weapons[inventory.inventoryIndex].GetComponent<IThrowable>().Throw();
-            }
+                inventory.weapons[inventory.inventoryIndex] = inventory.throwPlaceHolder;
+
+
+			}
         }
     }
     
@@ -147,20 +173,37 @@ public class Player : MonoBehaviour,IDamageableFoe
         }
         if (hit.transform.GetComponent<WeaponBase>() != null)
         {
+
+            if(inventory.weapons[1] != inventory.WeaponPlaceHolder)
+            {
+                inventory.weapons[1].transform.parent = null;
+
+				inventory.weapons[1].SetActive(true);
+				inventory.weapons[1].transform.position = hit.transform.position;
+			}
             
             inventory.weapons[1] = hit.transform.GetComponent<WeaponBase>().gameObject;
             inventory.weapons[1].transform.SetParent(WeaponHolder, false);
-            inventory.weapons[1].transform.position = WeaponHolder.position;
-            inventory.weapons[1].SetActive(false);
+		    inventory.weapons[1].transform.position = WeaponHolder.position;
+			inventory.weapons[1].transform.localRotation= Quaternion.identity;
+		   inventory.weapons[1].SetActive(false);
            
         }
         else if (hit.transform.GetComponent<IThrowable>() != null)
         {
-            
-             inventory.weapons[2] = hit.transform.gameObject;
-             inventory.weapons[2].transform.SetParent(WeaponHolder, false);
-             inventory.weapons[2].transform.position = WeaponHolder.position;
-             inventory.weapons[2].SetActive(false);
+			if (inventory.weapons[2] != inventory.throwPlaceHolder)
+			{
+				return;
+			}
+
+
+			hit.transform.GetComponent<IThrowable>().SetPlayerHandTransform(WeaponHolder);
+            hit.transform.GetComponent<ProjectileBase>().rb.isKinematic = true;
+			hit.transform.GetComponent<ProjectileBase>().rb.detectCollisions = false;
+			inventory.weapons[2] = hit.transform.gameObject;
+            inventory.weapons[2].transform.SetParent(WeaponHolder,false);
+            inventory.weapons[2].transform.position = WeaponHolder.position;
+            inventory.weapons[2].SetActive(false);
         }
         
     }
@@ -175,12 +218,14 @@ public class Player : MonoBehaviour,IDamageableFoe
                 inventory.weapons[inventory.inventoryIndex].SetActive(false);
                 inventory.inventoryIndex++;
                 inventory.inventoryIndex = Mathf.Clamp(inventory.inventoryIndex, 0, 2);
+                swappedWeapon = true;
             }
             else if (mouseScrollInput < 0)
             {
                 inventory.weapons[inventory.inventoryIndex].SetActive(false);
                 inventory.inventoryIndex--;
                 inventory.inventoryIndex = Mathf.Clamp(inventory.inventoryIndex, 0, 2);
+                swappedWeapon = true;
 
             }
         }
@@ -201,7 +246,7 @@ public class Player : MonoBehaviour,IDamageableFoe
     void Move()
     {
         Vector3 moveDirection = transform.forward * move.y + transform.right * move.x;
-        rb.AddForce(moveDirection.normalized * _moveSpeed);
+        characterController.Move(moveDirection * (Time.fixedDeltaTime * _moveSpeed));
     }
 
     void Look()
@@ -214,46 +259,53 @@ public class Player : MonoBehaviour,IDamageableFoe
         lookRotation = Mathf.Clamp(lookRotation, -80, 80);
         cameraHolder.transform.eulerAngles = new Vector3(lookRotation, cameraHolder.transform.eulerAngles.y, cameraHolder.transform.eulerAngles.z);
     }
+    
+    private void HandleGravity()
+    {
+        if (isGrounded && _characterVelocity.y < 0)
+        {
+            _characterVelocity.y = 0f;
+        }
+
+        _characterVelocity.y += gravityValue;
+        characterController.Move(_characterVelocity * Time.fixedDeltaTime);
+    }
 
     void Jump()
     {
-        Vector3 jumpStrength = Vector3.zero;
-
-        if (isGrounded)
-        {
-            jumpStrength = Vector3.up * jumpForce;
-            isGrounded = false;
-        }
-
-        rb.AddForce(jumpStrength, ForceMode.Force);
+        _characterVelocity.y += Mathf.Sqrt((jumpForce - 1) * -2f * gravityValue);
     }
 
     void GroundCheck()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, playerWidth, Ground);
-        // handle drag & Groundcheck
-        if (isGrounded)
-        {
-            isGrounded = true;
-            rb.drag = groundDrag;
-        }
-        else
-        {
-            rb.drag = 0;
-        }
     }
 
     private void ManageCurrentWeapon()
     {
-        if (mouseScrollInput != 0)
+        if (swappedWeapon)
         {
+            swappedWeapon= false;
             inventory.weapons[inventory.inventoryIndex].SetActive(true);
-        }
-
+			if(inventory.weapons[inventory.inventoryIndex].GetComponent<WeaponBase>() != null)
+            {
+                if (inventory.weapons[inventory.inventoryIndex].GetComponent<WeaponBase>().isOnReload)
+                {
+                    Debug.Log("Swap Reloading");
+                    inventory.weapons[inventory.inventoryIndex].GetComponent<WeaponBase>().Reload();
+                }
+            }
+		}
     }
 
     public void TakeDamage(float damage)
     {
         playerStats.TakeDamage(damage);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(groundCheck.position, playerWidth);
     }
 }
