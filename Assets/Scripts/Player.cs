@@ -35,7 +35,6 @@ public class Player : MonoBehaviour
     [Header("Player Values")]
     [SerializeField] private float playerWidth;
     [SerializeField] private float playerHeight;
-    private int health = 100;
 
     // Start is called before the first frame update
     private void Start()
