@@ -27,6 +27,7 @@ namespace Enemy
 
         private void Awake()
         {
+            player = FindObjectOfType<Player>();
             // attackCollider.enabled = false;
             agent.speed = enemyStats.GetSpeed();
         

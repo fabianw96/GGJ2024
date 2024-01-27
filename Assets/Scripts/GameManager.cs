@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     [SerializeField] private float _points = 0f;
+    private float _enemyCount;
     
     private void Awake()
     {
@@ -31,5 +32,19 @@ public class GameManager : MonoBehaviour
     {
         _points += amount;
     }
-    
+
+    public void AddEnemy()
+    {
+        _enemyCount++;
+    }
+
+    public void RemoveEnemy()
+    {
+        _enemyCount--;
+    }
+
+    public float GetEnemyCount()
+    {
+        return _enemyCount;
+    }
 }
