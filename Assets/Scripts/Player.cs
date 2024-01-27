@@ -1,4 +1,6 @@
 using Cinemachine;
+using System;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -9,6 +11,10 @@ public class Player : MonoBehaviour
     [SerializeField] private Rigidbody rb;
     public CinemachineVirtualCamera cinemachineVirtualCamera;
     public Cinemachine3rdPersonFollow ThirdPersonFollow;
+    public Transform WeaponHolder;
+    public Inventory inventory;
+    [SerializeField]
+    private float interactDistance = 10f;
 
 
     [Header("Movement")]
@@ -36,6 +42,8 @@ public class Player : MonoBehaviour
     [SerializeField] private float playerWidth;
     [SerializeField] private float playerHeight;
 
+    float mouseScrollInput;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -44,15 +52,16 @@ public class Player : MonoBehaviour
         rb.freezeRotation = true;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-      
+        ManageCurrentWeapon();
         GroundCheck();
     }
-    
+
     private void FixedUpdate()
     {
         Move();
@@ -75,14 +84,42 @@ public class Player : MonoBehaviour
     {
         Jump();
     }
+
     public void OnFire(InputAction.CallbackContext context)
     {
-
+        if (context.started)
+        {
+            if (inventory.weapons[inventory.inventoryIndex].GetComponent<WeaponBase>() != null)
+            {
+                Debug.Log(inventory.weapons[0].name);
+                inventory.weapons[inventory.inventoryIndex].GetComponent<WeaponBase>().UseGun();
+            }
+            else if (inventory.weapons[inventory.inventoryIndex].GetComponent<IThrowable>() != null)
+            {
+                inventory.weapons[inventory.inventoryIndex].GetComponent<IThrowable>().Throw();
+            }
+        }
     }
+    
     public void OnReload(InputAction.CallbackContext context)
     {
+       
+        if (inventory.weapons[inventory.inventoryIndex].GetComponent<WeaponBase>().isOnReload)
+        {
+            return;
+        }
 
+        if (context.started)
+        {
+           
+            if (inventory.weapons[inventory.inventoryIndex].GetComponent<WeaponBase>() != null)
+            {
+                
+                inventory.weapons[inventory.inventoryIndex].GetComponent<WeaponBase>().Reload();
+            }
+        }
     }
+    
     public void OnCameraFlipX(InputAction.CallbackContext context)
     {
         if (ThirdPersonFollow.CameraSide == 0)
@@ -93,6 +130,54 @@ public class Player : MonoBehaviour
         {
             ThirdPersonFollow.CameraSide = 0;
         }
+    }
+
+    public void OnPickUp(InputAction.CallbackContext context)
+    {
+        RaycastHit hit;
+        if (!Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit,interactDistance))
+        {
+            return;
+        }
+        if (hit.transform.GetComponent<WeaponBase>() != null)
+        {
+            
+            inventory.weapons[1] = hit.transform.GetComponent<WeaponBase>().gameObject;
+            inventory.weapons[1].transform.SetParent(WeaponHolder, false);
+            inventory.weapons[1].transform.position = WeaponHolder.position;
+            inventory.weapons[1].SetActive(false);
+           
+        }
+        else if (hit.transform.GetComponent<IThrowable>() != null)
+        {
+            
+             inventory.weapons[2] = hit.transform.gameObject;
+             inventory.weapons[2].transform.SetParent(WeaponHolder, false);
+             inventory.weapons[2].transform.position = WeaponHolder.position;
+             inventory.weapons[2].SetActive(false);
+        }
+        
+    }
+
+    public void OnWeaponSwap(InputAction.CallbackContext context)
+    {
+
+        if (context.started) { 
+        mouseScrollInput = context.ReadValue<float>();
+        if (mouseScrollInput > 0)
+        {
+            inventory.weapons[inventory.inventoryIndex].SetActive(false);
+            inventory.inventoryIndex++;
+            inventory.inventoryIndex = Mathf.Clamp(inventory.inventoryIndex, 0, 2);
+        }
+        else if (mouseScrollInput < 0)
+        {
+            inventory.weapons[inventory.inventoryIndex].SetActive(false);
+            inventory.inventoryIndex--;
+            inventory.inventoryIndex = Mathf.Clamp(inventory.inventoryIndex, 0, 2);
+
+        }
+    }
     }
     void Move()
     {
@@ -139,4 +224,12 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void ManageCurrentWeapon()
+    {
+        if (mouseScrollInput != 0)
+        {
+            inventory.weapons[inventory.inventoryIndex].SetActive(true);
+        }
+
+    }
 }
