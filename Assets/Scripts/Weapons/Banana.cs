@@ -23,12 +23,20 @@ public class Banana :ProjectileBase,IThrowable
 
 	public void Throw()
 	{
+		rb.isKinematic = false;
+		transform.parent = null;
 		rb.AddForce(playerHandPos.forward * throwForceForward + playerHandPos.up * throwForceUp, ForceMode.Impulse);
+		rb.detectCollisions = true;
 	}
 
-
-	public void PickUp()
+	public void SetPlayerHandTransform(Transform parent)
 	{
-		playerHandPos = gameObject.transform.parent.transform;
+		playerHandPos= parent;
+	}
+	public override void OnTriggerEnter(Collider other)
+	{
+		if(other.GetComponent<Player>() == null) {
+			base.OnTriggerEnter(other); 
+		}
 	}
 }

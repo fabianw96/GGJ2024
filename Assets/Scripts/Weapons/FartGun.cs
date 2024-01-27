@@ -45,8 +45,5 @@ public class FartGun :WeaponBase
 		trigger.enabled = false;
 	}
 
-	public void PickUp()
-	{
-		throw new System.NotImplementedException();
-	}
+
 }

@@ -24,8 +24,5 @@ public class FingerPistol : WeaponBase
 		}
 	}
 
-	public void PickUp()
-	{
-		throw new System.NotImplementedException();
-	}
+	
 }

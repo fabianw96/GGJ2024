@@ -4,24 +4,24 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainMenuButtons : MonoBehaviour
+public class GameOverButton : MonoBehaviour
 {
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
     }
-    public void LevelSelectButton()
+    public void Return()
     {
-        Szeneloader.Instance.LoadScene(SceneIndicies.LevelselectScene);
+        Szeneloader.Instance.LoadScene(SceneIndicies.Level1Scene);
     }
 
-    public void OptionsButton()
+    public void Menu()
     {
-        Szeneloader.Instance.LoadScene(SceneIndicies.OptionsScene,LoadSceneMode.Additive);
+        Szeneloader.Instance.LoadScene(SceneIndicies.MenuScene);
     }
 
-    public void QuitButton()
+    public void Quit() 
     {
         EditorApplication.isPlaying = false;
         Application.Quit();
