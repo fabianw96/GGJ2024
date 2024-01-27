@@ -18,7 +18,6 @@ public class Player : MonoBehaviour,IDamageableFoe
 
 
     [Header("Movement")]
-    [SerializeField] private float movespeed;
     [SerializeField] private float groundDrag;
     Vector2 move;
 
@@ -41,8 +40,16 @@ public class Player : MonoBehaviour,IDamageableFoe
     [Header("Player Values")]
     [SerializeField] private float playerWidth;
     [SerializeField] private float playerHeight;
+    [SerializeField] private PlayerStats playerStats;
+    private float _moveSpeed;
 
     float mouseScrollInput;
+    
+    private void Awake()
+    {
+        playerStats.InitStats();
+        _moveSpeed = playerStats.GetSpeed();
+    }
 
     // Start is called before the first frame update
     private void Start()
@@ -163,26 +170,26 @@ public class Player : MonoBehaviour,IDamageableFoe
     {
 
         if (context.started) { 
-        mouseScrollInput = context.ReadValue<float>();
-        if (mouseScrollInput > 0)
-        {
-            inventory.weapons[inventory.inventoryIndex].SetActive(false);
-            inventory.inventoryIndex++;
-            inventory.inventoryIndex = Mathf.Clamp(inventory.inventoryIndex, 0, 2);
-        }
-        else if (mouseScrollInput < 0)
-        {
-            inventory.weapons[inventory.inventoryIndex].SetActive(false);
-            inventory.inventoryIndex--;
-            inventory.inventoryIndex = Mathf.Clamp(inventory.inventoryIndex, 0, 2);
+            mouseScrollInput = context.ReadValue<float>();
+            if (mouseScrollInput > 0)
+            {
+                inventory.weapons[inventory.inventoryIndex].SetActive(false);
+                inventory.inventoryIndex++;
+                inventory.inventoryIndex = Mathf.Clamp(inventory.inventoryIndex, 0, 2);
+            }
+            else if (mouseScrollInput < 0)
+            {
+                inventory.weapons[inventory.inventoryIndex].SetActive(false);
+                inventory.inventoryIndex--;
+                inventory.inventoryIndex = Mathf.Clamp(inventory.inventoryIndex, 0, 2);
 
+            }
         }
-    }
     }
     void Move()
     {
         Vector3 moveDirection = transform.forward * move.y + transform.right * move.x;
-        rb.AddForce(moveDirection.normalized * movespeed);
+        rb.AddForce(moveDirection.normalized * _moveSpeed);
     }
 
     void Look()
@@ -235,6 +242,6 @@ public class Player : MonoBehaviour,IDamageableFoe
 
     public void TakeDamage(float damage)
     {
-        throw new NotImplementedException();
+        playerStats.TakeDamage(damage);
     }
 }

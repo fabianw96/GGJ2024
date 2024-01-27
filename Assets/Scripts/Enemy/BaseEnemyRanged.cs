@@ -12,12 +12,13 @@ public enum EEnemyTypeRanged
     Scared,
 }
 
-public class BaseEnemyRanged : MonoBehaviour
+public class BaseEnemyRanged : MonoBehaviour, IDamageableFoe
 {
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private Player player;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform projectileSpawn;
+    [SerializeField] private EnemyStats enemyStats;
 
     [SerializeField] private EEnemyTypeRanged enemyTypeRanged;
     [SerializeField] private float enemyRange = 5f;
@@ -29,6 +30,7 @@ public class BaseEnemyRanged : MonoBehaviour
     
     private void Awake()
     {
+        agent.speed = enemyStats.GetSpeed();
         switch (enemyTypeRanged)
         {
             case EEnemyTypeRanged.Sad:
@@ -81,5 +83,10 @@ public class BaseEnemyRanged : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         Destroy(projectile);
+    }
+    
+    public void TakeDamage(float takenDamage)
+    {
+        enemyStats.TakeDamage(takenDamage);
     }
 }

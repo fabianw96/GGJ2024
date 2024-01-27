@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    private float _points = 0f;
+    [SerializeField] private float _points = 0f;
     
     private void Awake()
     {
