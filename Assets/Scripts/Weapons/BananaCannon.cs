@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BananaCannon : WeaponBase,ICollectable
+public class BananaCannon : WeaponBase
 {
 
 	private void Awake()

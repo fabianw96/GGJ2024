@@ -7,5 +7,7 @@ public class EnemyStats : CharacterStats
     public override void Die()
     {
         base.Die();
+        GameManager.Instance.AddPoints(50f);
+        Destroy(gameObject);
     }
 }
