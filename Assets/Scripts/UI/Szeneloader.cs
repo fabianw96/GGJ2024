@@ -15,7 +15,8 @@ public enum SceneIndicies
     Level1Scene,
     Level2Scene,
     Level3Scene,
-    WinScene
+    WinScene,
+    Fabian
 
 
 }
