@@ -79,12 +79,11 @@ public class Player : MonoBehaviour,IDamageableFoe
         PlayerAnimationState();
         ManageCurrentWeapon();
         GroundCheck();
-        // currentVelocity = rb.velocity.magnitude;
     }
 
     private void PlayerAnimationState()
     {
-        animator.SetFloat(_velocityHash, currentVelocity);
+        animator.SetFloat(_velocityHash, currentVelocity, 0.05f, Time.deltaTime);
     }
 
     private void FixedUpdate()
@@ -210,7 +209,6 @@ public class Player : MonoBehaviour,IDamageableFoe
 
     public void OnWeaponSwap(InputAction.CallbackContext context)
     {
-
         if (context.started) { 
             mouseScrollInput = context.ReadValue<float>();
             if (mouseScrollInput > 0)
@@ -226,7 +224,6 @@ public class Player : MonoBehaviour,IDamageableFoe
                 inventory.inventoryIndex--;
                 inventory.inventoryIndex = Mathf.Clamp(inventory.inventoryIndex, 0, 2);
                 swappedWeapon = true;
-
             }
         }
     }
@@ -247,6 +244,7 @@ public class Player : MonoBehaviour,IDamageableFoe
     {
         Vector3 moveDirection = transform.forward * move.y + transform.right * move.x;
         characterController.Move(moveDirection * (Time.fixedDeltaTime * _moveSpeed));
+        currentVelocity = characterController.velocity.magnitude;
     }
 
     void Look()
