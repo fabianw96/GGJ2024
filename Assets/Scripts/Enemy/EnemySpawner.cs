@@ -7,62 +7,34 @@ using Random = UnityEngine.Random;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject enemySadPrefab;
-    [SerializeField] private GameObject enemyAngryPrefab;
-    [SerializeField] private GameObject enemyIndifferentPrefab;
-    [SerializeField] private GameObject enemyScaredPrefab;
-    [SerializeField] private GameObject bossEnemyAngryPrefab;
+    [SerializeField] private List<GameObject> enemyPrefabs;
     [SerializeField] private float spawnCooldown = 5f;
+    [SerializeField] private BossSpawner bossSpawner;
 
     private bool _isEnemySpawned;
-
-    private bool _hasMaxPoints;
     private bool _isBossSpawned;
     
     private void Update()
     {
-        _hasMaxPoints = GameManager.Instance.HasEnoughPoints;
         SpawnEnemy();
-        SpawnBoss();
-    }
-
-    private void SpawnBoss()
-    {
-        if (_hasMaxPoints && !_isBossSpawned)
-        {
-            Instantiate(bossEnemyAngryPrefab);
-            _isBossSpawned = true;
-        }
+        _isBossSpawned = bossSpawner.isBossSpawned;
     }
     
     private void SpawnEnemy()
     {
         if (!_isEnemySpawned && !_isBossSpawned)
         {
+            StopCoroutine(nameof(CreateEnemy));
             StartCoroutine(nameof(CreateEnemy));
         }
     }
 
     private IEnumerator CreateEnemy()
     {
-        int enemyToSpawn = Random.Range(0, 4);
-        switch (enemyToSpawn)
-        {
-            case 0:
-                Instantiate(enemySadPrefab);
-                break;
-            case 1:
-                Instantiate(enemyAngryPrefab);
-                break;
-            case 2:
-                Instantiate(enemyIndifferentPrefab);
-                break;
-            case 3:
-                Instantiate(enemyScaredPrefab);
-                break;
-        }
-
         _isEnemySpawned = true;
+        int enemyToSpawn = Random.Range(0, enemyPrefabs.Count);
+        yield return new WaitForSeconds(spawnCooldown);
+        Instantiate(enemyPrefabs[enemyToSpawn], gameObject.transform);
         yield return new WaitForSeconds(spawnCooldown);
         _isEnemySpawned = false;
     }

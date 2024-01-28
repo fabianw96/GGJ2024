@@ -46,6 +46,7 @@ public class Szeneloader : MonoBehaviour
     public void LoadScene(SceneIndicies _indicies, LoadSceneMode _mode = LoadSceneMode.Single)
     {
         SceneManager.LoadScene((int)_indicies, _mode);
+        
     }
 
     public void UnLoadScene(SceneIndicies _indicies)
