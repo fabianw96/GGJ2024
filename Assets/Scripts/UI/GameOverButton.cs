@@ -13,7 +13,7 @@ public class GameOverButton : MonoBehaviour
     }
     public void Return()
     {
-        Szeneloader.Instance.LoadScene(SceneIndicies.Level1Scene);
+        Szeneloader.Instance.LoadScene(SceneIndicies.Level0Scene, LoadSceneMode.Single);
     }
 
     public void Menu()
