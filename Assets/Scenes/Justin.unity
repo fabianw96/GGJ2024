@@ -869,7 +869,7 @@ PrefabInstance:
         type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 1088807682}
+      objectReference: {fileID: 0}
     - target: {fileID: 2660007013327978281, guid: 23cc0beb006e1474587e49628fdc9341,
         type: 3}
       propertyPath: grenade
@@ -1051,10 +1051,15 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -25
       objectReference: {fileID: 0}
+    - target: {fileID: 4628639950542206638, guid: 23cc0beb006e1474587e49628fdc9341,
+        type: 3}
+      propertyPath: m_Name
+      value: Angry
+      objectReference: {fileID: 0}
     - target: {fileID: 4837377804209694167, guid: 23cc0beb006e1474587e49628fdc9341,
         type: 3}
       propertyPath: m_Name
-      value: BossImage
+      value: BossInfo
       objectReference: {fileID: 0}
     - target: {fileID: 4874556650038416792, guid: 23cc0beb006e1474587e49628fdc9341,
         type: 3}
@@ -1267,7 +1272,7 @@ PrefabInstance:
       value: -50
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 2529022869354228759, guid: 23cc0beb006e1474587e49628fdc9341, type: 3}
+    - {fileID: 0}
     m_RemovedGameObjects:
     - {fileID: 652011509812483128, guid: 23cc0beb006e1474587e49628fdc9341, type: 3}
     - {fileID: 4720013713212560, guid: 23cc0beb006e1474587e49628fdc9341, type: 3}
@@ -1504,18 +1509,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1088807682 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3286941882212332316, guid: 09d01d00c6098bb4baee226e2d5dfc80,
-    type: 3}
-  m_PrefabInstance: {fileID: 1411793076}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07aa2f94cc83bad4091d1d5e3ba1cab2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1243693070
@@ -2478,6 +2471,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 422969219793656771, guid: 5ab95e1fb4dc0e044b4f69398e17337a,
+        type: 3}
+      propertyPath: damage
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 4535052683625306037, guid: 5ab95e1fb4dc0e044b4f69398e17337a,
         type: 3}
       propertyPath: m_Name
@@ -2565,6 +2563,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2640327224348317964, guid: bd71d96c1447ce444ab4eda85ea47870,
+        type: 3}
+      propertyPath: damage
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4475668273232301938, guid: bd71d96c1447ce444ab4eda85ea47870,
         type: 3}

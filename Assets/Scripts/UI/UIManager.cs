@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -13,16 +14,25 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Player player;
     [SerializeField] private PlayerStats playerStats;
     [SerializeField] private Inventory inventory;
+    [SerializeField] private Szeneloader sceneLoader;
+
+    [SerializeField] private Image bossIconBored;
+    [SerializeField] private Image bossIconAngry;
+    [SerializeField] private Image bossIconSad;
+    [SerializeField] private Image bossIconScared;
+
     [SerializeField] private Image playerIconHappy;
     [SerializeField] private Image playerIconNeutral;
     [SerializeField] private Image playerIconSad;
     [SerializeField] private Image playerIconDepressed;
+    
     [SerializeField] private Image primaryWeapon;
     [SerializeField] private Image secondaryWeapon;
     [SerializeField] private Image grenade;
     [SerializeField] private TextMeshProUGUI primarySlotNumber;
     [SerializeField] private TextMeshProUGUI secondarySlotNumber;
     [SerializeField] private TextMeshProUGUI grenadeSlotNumber;
+    
     [SerializeField] private Slider slider;
     [SerializeField] private float points;
 
@@ -31,6 +41,7 @@ public class UIManager : MonoBehaviour
     {
         
         player = FindObjectOfType<Player>();
+        sceneLoader = FindObjectOfType<Szeneloader>();
         playerStats = player.GetComponent<PlayerStats>();
         inventory = player.GetComponent<Inventory>();
         if(Instance != null && Instance != this)
@@ -48,7 +59,40 @@ public class UIManager : MonoBehaviour
     {
         UpdateSelectedWeapon();
         UpdatePlayerIcon();
+        UpdateBossIcon();
         UpdateScore();
+    }
+
+    private void UpdateBossIcon()
+    {
+        if (sceneLoader.gameObject.scene.buildIndex == 6)
+        {
+            bossIconBored.gameObject.SetActive(true);
+            bossIconAngry.gameObject.SetActive(false);
+            bossIconSad.gameObject.SetActive(false);
+            bossIconScared.gameObject.SetActive(false);
+        }
+        if (sceneLoader.gameObject.scene.buildIndex == 7)
+        {
+            bossIconBored.gameObject.SetActive(false);
+            bossIconAngry.gameObject.SetActive(true);
+            bossIconSad.gameObject.SetActive(false);
+            bossIconScared.gameObject.SetActive(false);
+        }
+        if (sceneLoader.gameObject.scene.buildIndex == 8)
+        {
+            bossIconBored.gameObject.SetActive(false);
+            bossIconAngry.gameObject.SetActive(false);
+            bossIconSad.gameObject.SetActive(true);
+            bossIconScared.gameObject.SetActive(false);
+        }
+        if (sceneLoader.gameObject.scene.buildIndex == 9)
+        {
+            bossIconBored.gameObject.SetActive(false);
+            bossIconAngry.gameObject.SetActive(false);
+            bossIconSad.gameObject.SetActive(false);
+            bossIconScared.gameObject.SetActive(true);
+        }
     }
 
     public void UpdateScore()
