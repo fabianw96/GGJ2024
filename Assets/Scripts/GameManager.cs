@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
         }
         DontDestroyOnLoad(this);
     }
+    
 
     public float GetPoints()
     {

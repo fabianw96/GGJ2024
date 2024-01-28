@@ -169,7 +169,7 @@ MonoBehaviour:
   enemyStats: {fileID: 3928356247192630050}
   enemyTypeRanged: 1
   enemyRange: 15
-  projectileSpeed: 10
+  projectileSpeed: 30
   shotDelay: 1
   shotDecay: 5
 --- !u!1 &7451251059633276400
