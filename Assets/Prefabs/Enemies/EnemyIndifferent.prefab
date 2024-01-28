@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: d595dfebee42b2e4f99d3643e082ef60, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -212,8 +212,9 @@ MonoBehaviour:
   player: {fileID: 0}
   enemyTypeMelee: 0
   cooldown: 10
+  spawnAttackCooldown: 2
   attackBox: {fileID: 7113251326748718663}
-  damage: 50
+  damage: 25
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -232,6 +233,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHappiness: 100
   happiness: 100
-  characterSpeed: 5
+  characterSpeed: 3
   isDead: 0
   isBoss: 0

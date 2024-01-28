@@ -34,10 +34,10 @@ namespace Enemy
             switch (enemyTypeMelee)
             {
                 case EEnemyTypeMelee.Indifferent:
-                    GetComponentInChildren<MeshRenderer>().material.color = Color.gray;
+                    // GetComponentInChildren<MeshRenderer>().material.color = Color.gray;
                     break;
                 case EEnemyTypeMelee.Angry:
-                    GetComponentInChildren<MeshRenderer>().material.color = Color.red;
+                    // GetComponentInChildren<MeshRenderer>().material.color = Color.red;
                     break;
             }
         }

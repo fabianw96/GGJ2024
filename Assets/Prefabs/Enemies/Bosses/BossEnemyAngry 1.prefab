@@ -129,6 +129,7 @@ MonoBehaviour:
   player: {fileID: 0}
   enemyTypeMelee: 1
   cooldown: 10
+  spawnAttackCooldown: 2
   attackBox: {fileID: 4648601370727336449}
   damage: 50
   playerLayer:
@@ -213,7 +214,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: e76538506a6e9e8418d3011cd0081e14, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
