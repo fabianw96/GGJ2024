@@ -11,18 +11,33 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private GameObject enemyAngryPrefab;
     [SerializeField] private GameObject enemyIndifferentPrefab;
     [SerializeField] private GameObject enemyScaredPrefab;
+    [SerializeField] private GameObject bossEnemyAngryPrefab;
     [SerializeField] private float spawnCooldown = 5f;
 
-    private bool _enemySpawned;
+    private bool _isEnemySpawned;
+
+    private bool _hasMaxPoints;
+    private bool _isBossSpawned;
     
     private void Update()
     {
+        _hasMaxPoints = GameManager.Instance.HasEnoughPoints;
         SpawnEnemy();
+        SpawnBoss();
     }
 
+    private void SpawnBoss()
+    {
+        if (_hasMaxPoints && !_isBossSpawned)
+        {
+            Instantiate(bossEnemyAngryPrefab);
+            _isBossSpawned = true;
+        }
+    }
+    
     private void SpawnEnemy()
     {
-        if (!_enemySpawned)
+        if (!_isEnemySpawned && !_isBossSpawned)
         {
             StartCoroutine(nameof(CreateEnemy));
         }
@@ -47,8 +62,8 @@ public class EnemySpawner : MonoBehaviour
                 break;
         }
 
-        _enemySpawned = true;
+        _isEnemySpawned = true;
         yield return new WaitForSeconds(spawnCooldown);
-        _enemySpawned = false;
+        _isEnemySpawned = false;
     }
 }
