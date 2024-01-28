@@ -654,7 +654,7 @@ GameObject:
   m_Component:
   - component: {fileID: 497194779981872560}
   - component: {fileID: 7397225822629155823}
-  - component: {fileID: 4385310364931602524}
+  - component: {fileID: 2518786212946105889}
   m_Layer: 5
   m_Name: WeaponIcon
   m_TagString: Untagged
@@ -689,7 +689,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2232551605686176018}
   m_CullTransparentMesh: 1
---- !u!114 &4385310364931602524
+--- !u!114 &2518786212946105889
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -709,7 +709,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e7feaac1b1c0e1841afb9f793368f52e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 67f81d2b63e923c46b0a3b44c6a10c6c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1345,6 +1345,7 @@ MonoBehaviour:
   player: {fileID: 0}
   playerStats: {fileID: 0}
   inventory: {fileID: 0}
+  sceneLoader: {fileID: 0}
   bossIconBored: {fileID: 7662107054661866674}
   bossIconAngry: {fileID: 5173646406975830655}
   bossIconSad: {fileID: 5185281873178992663}
@@ -1353,7 +1354,7 @@ MonoBehaviour:
   playerIconNeutral: {fileID: 8579099182322203650}
   playerIconSad: {fileID: 4757376308530328001}
   playerIconDepressed: {fileID: 8341591388327915337}
-  primaryWeapon: {fileID: 4385310364931602524}
+  primaryWeapon: {fileID: 2518786212946105889}
   secondaryWeapon: {fileID: 6805991850994167071}
   grenade: {fileID: 5690340226572465142}
   primarySlotNumber: {fileID: 488168989424942648}
