@@ -152,17 +152,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ae455932bb99764483a810c569502d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySadPrefab: {fileID: 8353443542560057334, guid: c373bc83aedfba243aad92f09676e174,
-    type: 3}
-  enemyAngryPrefab: {fileID: 3211065647840941361, guid: 5ab95e1fb4dc0e044b4f69398e17337a,
-    type: 3}
-  enemyIndifferentPrefab: {fileID: 4924946203929115905, guid: bd71d96c1447ce444ab4eda85ea47870,
-    type: 3}
-  enemyScaredPrefab: {fileID: 3047704077204217221, guid: d88471827fdfbf745bcc504bc0b8e718,
-    type: 3}
-  bossEnemyAngryPrefab: {fileID: 3211065647840941361, guid: 2b0e1442da7d4be498d66051ffd6fd1a,
-    type: 3}
+  enemyPrefabs: []
   spawnCooldown: 5
+  bossSpawner: {fileID: 0}
 --- !u!4 &21487364
 Transform:
   m_ObjectHideFlags: 0
@@ -1967,6 +1959,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyIndifferent
       objectReference: {fileID: 0}
+    - target: {fileID: 8419984086970816956, guid: bd71d96c1447ce444ab4eda85ea47870,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1984,6 +1981,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EnemyAngry
+      objectReference: {fileID: 0}
+    - target: {fileID: 5170562171679162367, guid: 5ab95e1fb4dc0e044b4f69398e17337a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5792991821389994717, guid: 5ab95e1fb4dc0e044b4f69398e17337a,
         type: 3}
@@ -2103,6 +2105,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyScared
       objectReference: {fileID: 0}
+    - target: {fileID: 4040144051938634598, guid: d88471827fdfbf745bcc504bc0b8e718,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2176,6 +2183,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8588660690465654842, guid: 09d01d00c6098bb4baee226e2d5dfc80,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8588660690465654842, guid: 09d01d00c6098bb4baee226e2d5dfc80,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8588660690465654842, guid: 09d01d00c6098bb4baee226e2d5dfc80,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2193,6 +2215,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EnemySad
+      objectReference: {fileID: 0}
+    - target: {fileID: 2353018973142795203, guid: c373bc83aedfba243aad92f09676e174,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8163987457668260569, guid: c373bc83aedfba243aad92f09676e174,
         type: 3}
