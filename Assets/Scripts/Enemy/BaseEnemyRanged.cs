@@ -35,11 +35,11 @@ public class BaseEnemyRanged : MonoBehaviour, IDamageableFoe
         switch (enemyTypeRanged)
         {
             case EEnemyTypeRanged.Sad:
-                GetComponentInChildren<MeshRenderer>().material.color = Color.blue;
+                // GetComponentInChildren<MeshRenderer>().material.color = Color.blue;
                 _enemyStoppingDistance = enemyRange;
                 break;
             case EEnemyTypeRanged.Scared:
-                GetComponentInChildren<MeshRenderer>().material.color = Color.magenta;
+                // GetComponentInChildren<MeshRenderer>().material.color = Color.magenta;
                 _enemyStoppingDistance = enemyRange * 2f;
                 break;
         }

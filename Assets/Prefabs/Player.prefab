@@ -737,7 +737,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapons: []
-  fingerpistol: {fileID: 0}
+  fingerpistol: {fileID: 6958641613846796461}
   WeaponPlaceHolder: {fileID: 5843804117876016434}
   throwPlaceHolder: {fileID: 231135952598557485}
   inventoryIndex: 0
@@ -3034,6 +3034,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FingerPistol
       objectReference: {fileID: 0}
+    - target: {fileID: 5031691647653307588, guid: 9f86189d52361084cabb14bfeababd55,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1756985633946337199}
     - target: {fileID: 5942264609232335955, guid: 9f86189d52361084cabb14bfeababd55,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3089,6 +3094,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f86189d52361084cabb14bfeababd55, type: 3}
+--- !u!114 &6958641613846796461 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5031691647653307588, guid: 9f86189d52361084cabb14bfeababd55,
+    type: 3}
+  m_PrefabInstance: {fileID: 2685877422615313513}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b98fa93b91f9e04caa99f5258d814f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &8588660690465654842 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5942264609232335955, guid: 9f86189d52361084cabb14bfeababd55,
