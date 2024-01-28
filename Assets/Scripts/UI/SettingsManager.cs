@@ -9,7 +9,7 @@ public class SettingsManeger : MonoBehaviour
     public void SetVolume(float volume)
     {
         AudioMixer.SetFloat("Volume", Mathf.Log10(volume) * 20);
-        //AudioMixer.SetFloat("Volume", volume);
+        // AudioMixer.SetFloat("Volume", volume);
     }
     public void SetFullscreen(bool isFullscreen)
     {

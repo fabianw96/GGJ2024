@@ -17,6 +17,7 @@ namespace Enemy
         [SerializeField] private Player player;
         [SerializeField] private EEnemyTypeMelee enemyTypeMelee;
         [SerializeField] private float cooldown = 1f;
+        [SerializeField] private float spawnAttackCooldown = 2f;
         [SerializeField] private GameObject attackBox;
         [SerializeField] private float damage = 50f;
         [SerializeField] private LayerMask playerLayer;
@@ -28,10 +29,8 @@ namespace Enemy
         private void Awake()
         {
             player = FindObjectOfType<Player>();
-            // attackCollider.enabled = false;
+            StartCoroutine(spawnAtkCooldown());
             agent.speed = enemyStats.GetSpeed();
-        
-        
             switch (enemyTypeMelee)
             {
                 case EEnemyTypeMelee.Indifferent:
@@ -67,9 +66,13 @@ namespace Enemy
         {
             Collider[] hitCollider = Physics.OverlapBox(attackBox.transform.position, attackBox.transform.localScale,
                 quaternion.identity, playerLayer);
+            
 
-            if (hitCollider.Length == 0 || _hasAttacked) return;
-            StartCoroutine(AttackPlayer());
+            if (hitCollider.Length == 0) return;
+            if (!_hasAttacked)
+            {
+                StartCoroutine(AttackPlayer());
+            }
         }
 
 
@@ -77,7 +80,15 @@ namespace Enemy
         {
             _hasAttacked = true;    
             player.TakeDamage(damage);
+            Debug.Log("Hit player");
             yield return new WaitForSeconds(cooldown);
+            _hasAttacked = false;
+        }
+
+        private IEnumerator spawnAtkCooldown()
+        {
+            _hasAttacked = true;
+            yield return new WaitForSeconds(spawnAttackCooldown);
             _hasAttacked = false;
         }
 
