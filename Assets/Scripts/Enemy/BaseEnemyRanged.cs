@@ -30,6 +30,7 @@ public class BaseEnemyRanged : MonoBehaviour, IDamageableFoe
     
     private void Awake()
     {
+        player = FindObjectOfType<Player>();
         agent.speed = enemyStats.GetSpeed();
         switch (enemyTypeRanged)
         {
@@ -53,6 +54,7 @@ public class BaseEnemyRanged : MonoBehaviour, IDamageableFoe
     private void ChasePlayer()
     {
         agent.SetDestination(player.transform.position);
+        projectileSpawn.LookAt(player.transform);
 
         if (!agent.Raycast(player.transform.position, out NavMeshHit hit))
         {

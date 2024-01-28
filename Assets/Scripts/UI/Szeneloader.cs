@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public enum SceneIndicies
 {
-    InitScene,
+    InitScene = 0,
     LevelScene,
     MenuScene,
     LevelselectScene,
