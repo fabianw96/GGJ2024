@@ -30,15 +30,16 @@ public class BaseEnemyRanged : MonoBehaviour, IDamageableFoe
     
     private void Awake()
     {
+        player = FindObjectOfType<Player>();
         agent.speed = enemyStats.GetSpeed();
         switch (enemyTypeRanged)
         {
             case EEnemyTypeRanged.Sad:
-                GetComponent<MeshRenderer>().material.color = Color.blue;
+                GetComponentInChildren<MeshRenderer>().material.color = Color.blue;
                 _enemyStoppingDistance = enemyRange;
                 break;
             case EEnemyTypeRanged.Scared:
-                GetComponent<MeshRenderer>().material.color = Color.magenta;
+                GetComponentInChildren<MeshRenderer>().material.color = Color.magenta;
                 _enemyStoppingDistance = enemyRange * 2f;
                 break;
         }
@@ -53,6 +54,7 @@ public class BaseEnemyRanged : MonoBehaviour, IDamageableFoe
     private void ChasePlayer()
     {
         agent.SetDestination(player.transform.position);
+        projectileSpawn.LookAt(player.transform);
 
         if (!agent.Raycast(player.transform.position, out NavMeshHit hit))
         {
