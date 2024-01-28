@@ -13,6 +13,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Player player;
     [SerializeField] private PlayerStats playerStats;
     [SerializeField] private Inventory inventory;
+    [SerializeField] private Image playerIconHappy;
+    [SerializeField] private Image playerIconNeutral;
+    [SerializeField] private Image playerIconSad;
+    [SerializeField] private Image playerIconDepressed;
     [SerializeField] private Image primaryWeapon;
     [SerializeField] private Image secondaryWeapon;
     [SerializeField] private Image grenade;
@@ -26,9 +30,9 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         
-        // player = FindFirstObjectByType<Player>();
-        // playerStats = player.GetComponent<PlayerStats>();
-        // inventory = player.GetComponent<Inventory>();
+        player = FindObjectOfType<Player>();
+        playerStats = player.GetComponent<PlayerStats>();
+        inventory = player.GetComponent<Inventory>();
         if(Instance != null && Instance != this)
         {
             Destroy(this);
@@ -43,7 +47,7 @@ public class UIManager : MonoBehaviour
     private void Update()
     {
         UpdateSelectedWeapon();
-        UpdateHappiness();
+        UpdatePlayerIcon();
         UpdateScore();
     }
 
@@ -53,10 +57,35 @@ public class UIManager : MonoBehaviour
         slider.value = points;
     }
 
-    public void UpdateHappiness()
+    public void UpdatePlayerIcon()
     {
-        if (playerStats.GetHappiness() <= 0f)
+        if (playerStats.GetHappiness() <= 100f && playerStats.GetHappiness() > 75)
         {
+            playerIconHappy.gameObject.SetActive(true);
+            playerIconNeutral.gameObject.SetActive(false);
+            playerIconSad.gameObject.SetActive(false);
+            playerIconDepressed.gameObject.SetActive(false);
+        }
+        else if (playerStats.GetHappiness() <= 75f && playerStats.GetHappiness() > 50)
+        {
+            playerIconHappy.gameObject.SetActive(false);
+            playerIconNeutral.gameObject.SetActive(true);
+            playerIconSad.gameObject.SetActive(false);
+            playerIconDepressed.gameObject.SetActive(false);
+        }
+        else if (playerStats.GetHappiness() <= 50f && playerStats.GetHappiness() > 25)
+        {
+            playerIconHappy.gameObject.SetActive(false);
+            playerIconNeutral.gameObject.SetActive(false);
+            playerIconSad.gameObject.SetActive(true);
+            playerIconDepressed.gameObject.SetActive(false);
+        }
+        else if (playerStats.GetHappiness() <= 25f && playerStats.GetHappiness() >= 0)
+        {
+            playerIconHappy.gameObject.SetActive(false);
+            playerIconNeutral.gameObject.SetActive(false);
+            playerIconSad.gameObject.SetActive(false);
+            playerIconDepressed.gameObject.SetActive(true);
         }
     }
 
