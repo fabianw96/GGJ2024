@@ -42,6 +42,7 @@ public class UIManager : MonoBehaviour
         {
             Instance = this;
         }
+        
     }
 
     private void Update()
@@ -56,6 +57,7 @@ public class UIManager : MonoBehaviour
         points = GameManager.Instance.GetPoints();
         slider.value = points;
     }
+
 
     public void UpdatePlayerIcon()
     {

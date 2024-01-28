@@ -6,14 +6,18 @@ using UnityEngine.SceneManagement;
 
 public class GameOverButton : MonoBehaviour
 {
+    
+
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
     }
-    public void Return()
+    public void Restart()
     {
-        Szeneloader.Instance.LoadScene(SceneIndicies.Level0Scene, LoadSceneMode.Single);
+        GameManager.Instance.ResetPoints();
+        Szeneloader.Instance.LoadScene(Szeneloader.GetCurrentScene(), LoadSceneMode.Single);
+
     }
 
     public void Menu()

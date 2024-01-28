@@ -54,4 +54,9 @@ public class Szeneloader : MonoBehaviour
     {
         SceneManager.UnloadSceneAsync((int)_indicies);
     }
+
+    public static SceneIndicies GetCurrentScene()
+    {
+       return LevelSelectButtons.currentScene;
+    }
 }

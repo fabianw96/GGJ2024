@@ -40,6 +40,10 @@ public class GameManager : MonoBehaviour
         return _points;
     }
 
+    public void ResetPoints()
+    {
+        _points = 0f;
+    }
     public void AddPoints(float amount)
     {
         _points += amount;

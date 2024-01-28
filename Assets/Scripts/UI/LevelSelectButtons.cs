@@ -6,38 +6,40 @@ using UnityEngine.SceneManagement;
 
 public class LevelSelectButtons : MonoBehaviour
 {
+    public static SceneIndicies currentScene;
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
     }
 
-    public string selectedScene;
+    public SceneIndicies selectedScene;
 
     public void Tutorial()
     {
-        selectedScene = "Level 0 Scene";
+        selectedScene = SceneIndicies.Level0Scene;
     }
 
     public void Level1()
     {
-        selectedScene = "Level 1 Scene";
+        selectedScene = SceneIndicies.Level1Scene;
     }
 
     public void Level2()
     {
-        selectedScene = "Level 2 Scene";
+        selectedScene = SceneIndicies.Level2Scene;
     }
 
     public void Level3()
     {
-        selectedScene = "Level 3 Scene";
+        selectedScene = SceneIndicies.Level1Scene;
     }
 
     public void Go()
     {
-        SceneManager.LoadScene(selectedScene);
-
+        currentScene = selectedScene;
+        Szeneloader.Instance.LoadScene(selectedScene);
+        
     }
 
     public void Back()
