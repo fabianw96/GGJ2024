@@ -5,9 +5,9 @@ using UnityEngine.SceneManagement;
 
 public enum SceneIndicies
 {
-    InitScene = 0,
+    InitScene,
     LevelScene,
-    MenuScene = 2,
+    MenuScene,
     LevelselectScene,
     PauseScene,
     OptionsScene,
@@ -15,7 +15,7 @@ public enum SceneIndicies
     Level1Scene,
     Level2Scene,
     Level3Scene,
-    Fabian
+    WinScene
 
 
 }

@@ -45,10 +45,7 @@ public class LevelSelectButtons : MonoBehaviour
        Szeneloader.Instance.LoadScene(SceneIndicies.MenuScene);
     }
 
-    public void Levelinfo()
-    {
-        
-    }
+  
 
    
 }
