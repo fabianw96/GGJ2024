@@ -26,9 +26,9 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         
-        // player = FindFirstObjectByType<Player>();
-        // playerStats = player.GetComponent<PlayerStats>();
-        // inventory = player.GetComponent<Inventory>();
+        player = FindObjectOfType<Player>();
+        playerStats = player.GetComponent<PlayerStats>();
+        inventory = player.GetComponent<Inventory>();
         if(Instance != null && Instance != this)
         {
             Destroy(this);

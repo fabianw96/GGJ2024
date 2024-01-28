@@ -1194,12 +1194,12 @@ MonoBehaviour:
   player: {fileID: 0}
   playerStats: {fileID: 0}
   inventory: {fileID: 0}
-  primaryWeapon: {fileID: 0}
-  secondaryWeapon: {fileID: 0}
-  grenade: {fileID: 0}
-  primarySlotNumber: {fileID: 0}
-  secondarySlotNumber: {fileID: 0}
-  grenadeSlotNumber: {fileID: 0}
+  primaryWeapon: {fileID: 4385310364931602524}
+  secondaryWeapon: {fileID: 6805991850994167071}
+  grenade: {fileID: 5690340226572465142}
+  primarySlotNumber: {fileID: 488168989424942648}
+  secondarySlotNumber: {fileID: 7862449280785534873}
+  grenadeSlotNumber: {fileID: 5916931456849424961}
   slider: {fileID: 348019310155878919}
   points: 0
 --- !u!1 &5271347369014939903
