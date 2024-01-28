@@ -209,7 +209,6 @@ public class Player : MonoBehaviour,IDamageableFoe
 
     public void OnWeaponSwap(InputAction.CallbackContext context)
     {
-
         if (context.started) { 
             mouseScrollInput = context.ReadValue<float>();
             if (mouseScrollInput > 0)
@@ -225,7 +224,6 @@ public class Player : MonoBehaviour,IDamageableFoe
                 inventory.inventoryIndex--;
                 inventory.inventoryIndex = Mathf.Clamp(inventory.inventoryIndex, 0, 2);
                 swappedWeapon = true;
-
             }
         }
     }

@@ -4,6 +4,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -24,15 +25,19 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
+        
+        // player = FindFirstObjectByType<Player>();
+        // playerStats = player.GetComponent<PlayerStats>();
+        // inventory = player.GetComponent<Inventory>();
         if(Instance != null && Instance != this)
         {
             Destroy(this);
+            Destroy(this.gameObject);
         }
         else
         {
             Instance = this;
         }
-        DontDestroyOnLoad(this);
     }
 
     private void Update()
@@ -50,11 +55,14 @@ public class UIManager : MonoBehaviour
 
     public void UpdateHappiness()
     {
-        
+        if (playerStats.GetHappiness() <= 0f)
+        {
+        }
     }
 
     public void UpdateSelectedWeapon() 
     {
+        Debug.Log(inventory.inventoryIndex);
         if (inventory.inventoryIndex == 0)
         {
             Debug.Log("Primary Selected");

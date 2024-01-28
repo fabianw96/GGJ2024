@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float winPoints = 500f;
     private float _enemyCount;
     public bool HasEnoughPoints { get; private set; }
+    private bool isAlive;
 
     private void Awake()
     {

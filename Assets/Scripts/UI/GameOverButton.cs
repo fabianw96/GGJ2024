@@ -18,6 +18,10 @@ public class GameOverButton : MonoBehaviour
 
     public void Menu()
     {
+        if (Szeneloader.Instance == null)
+        {
+            Debug.Log("Scene");
+        }
         Szeneloader.Instance.LoadScene(SceneIndicies.MenuScene);
     }
 

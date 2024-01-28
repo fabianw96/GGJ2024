@@ -69,4 +69,9 @@ public abstract class CharacterStats : MonoBehaviour
         return characterSpeed;
     }
 
+    public float GetHappiness()
+    {
+        return happiness;
+    }
+
 }

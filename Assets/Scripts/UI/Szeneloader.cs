@@ -7,14 +7,15 @@ public enum SceneIndicies
 {
     InitScene = 0,
     LevelScene,
-    MenuScene,
+    MenuScene = 2,
     LevelselectScene,
     PauseScene,
     OptionsScene,
     Level0Scene,
     Level1Scene,
     Level2Scene,
-    Level3Scene
+    Level3Scene,
+    Fabian
 
 
 }
