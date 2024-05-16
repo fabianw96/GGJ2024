@@ -33,9 +33,8 @@ public class EnemySpawner : MonoBehaviour
     {
         _isEnemySpawned = true;
         int enemyToSpawn = Random.Range(0, enemyPrefabs.Count);
-        yield return new WaitForSeconds(spawnCooldown);
         Instantiate(enemyPrefabs[enemyToSpawn], gameObject.transform);
-        yield return new WaitForSeconds(spawnCooldown);
+        yield return new WaitForSeconds(spawnCooldown); 
         _isEnemySpawned = false;
     }
 }

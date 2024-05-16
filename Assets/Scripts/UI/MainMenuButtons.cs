@@ -23,7 +23,6 @@ public class MainMenuButtons : MonoBehaviour
 
     public void QuitButton()
     {
-        EditorApplication.isPlaying = false;
         Application.Quit();
     }
 }

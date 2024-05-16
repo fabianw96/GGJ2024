@@ -21,7 +21,6 @@ public class PauseButton : MonoBehaviour
     }
     public void QuitButton()
     {
-        EditorApplication.isPlaying = false;
         Application.Quit();
     }
 }

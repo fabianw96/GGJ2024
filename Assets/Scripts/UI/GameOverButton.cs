@@ -31,7 +31,6 @@ public class GameOverButton : MonoBehaviour
 
     public void Quit() 
     {
-        EditorApplication.isPlaying = false;
         Application.Quit();
     }
 }

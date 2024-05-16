@@ -17,7 +17,6 @@ public class WinButton : MonoBehaviour
 
     public void Quit()
     {
-        EditorApplication.isPlaying = false;
         Application.Quit();
     }
 }

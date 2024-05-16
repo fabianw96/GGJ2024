@@ -1,11 +1,6 @@
 using Cinemachine;
-using System;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
-using static UnityEditor.SceneView;
 
 public class Player : MonoBehaviour,IDamageableFoe
 {
